@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import Quill from "quill";
 import './App.css';
-import {useState} from 'react';
+import {useState, useRef} from 'react';
 function AddLibrary(urlOfTheLibrary){
   const script = document.createElement("script");
   script.src = urlOfTheLibrary;
@@ -11,6 +11,9 @@ function AddLibrary(urlOfTheLibrary){
 
 function App() {
   const [userInput, setUserInput] = useState('');
+  const handleClick = event => {
+    alert(userInput);
+  }
   const handleMessageChange = event => {
     setUserInput(event.target.value);
   }
@@ -53,9 +56,9 @@ function App() {
   );
 }
 
-function handleClick(){
-  alert("Submit button has been clicked.");
-}
+//function handleClick(){
+//  alert(userInput);
+//}
 
 let quill = new Quill('#editor-container');
 
