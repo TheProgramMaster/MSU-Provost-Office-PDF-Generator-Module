@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import Quill from "quill";
 import './App.css';
-
+import {useState} from 'react';
 function AddLibrary(urlOfTheLibrary){
   const script = document.createElement("script");
   script.src = urlOfTheLibrary;
@@ -10,6 +10,10 @@ function AddLibrary(urlOfTheLibrary){
 }
 
 function App() {
+  const [userInput, setUserInput] = useState('');
+  const handleMessageChange = event => {
+    setUserInput(event.target.value);
+  }
   return(
    <div class="container">
     <h2>Generate PDF from Web Form</h2>
@@ -27,13 +31,30 @@ function App() {
     </div>
     <form id="pdfForm">
       <div class="form-group">
-        <textarea id="editor-container" class="editor" placeholder="Enter Text: "></textarea>
+        <textarea 
+        id="userInput" 
+        name="userInput"
+        value={userInput}
+        class="editor" 
+        placeholder="Enter Text: "
+        onChange={handleMessageChange}></textarea>
       </div>
-      <button type="submit" class="btn-submit">Generate PDF</button>
+      <button 
+      type="submit" 
+      class="btn-submit" 
+      onClick={handleClick}
+      disabled={!userInput} 
+      >
+        Generate PDF
+      </button>
     </form>
     {AddLibrary("https://cdn.quilljs.com/1.3.6/quill.js")}
    </div>
   );
+}
+
+function handleClick(){
+  alert("Submit button has been clicked.");
 }
 
 let quill = new Quill('#editor-container');
