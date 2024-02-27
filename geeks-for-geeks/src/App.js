@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import Quill from "quill";
 import './App.css';
 import {useState, useRef} from 'react';
+//import processHTMLString from 'htmlToPDFKit';
 function AddLibrary(urlOfTheLibrary){
   const script = document.createElement("script");
   script.src = urlOfTheLibrary;
@@ -11,8 +12,21 @@ function AddLibrary(urlOfTheLibrary){
 
 function App() {
   const [userInput, setUserInput] = useState('');
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+  const disableButton = () => {
+    setButtonDisabled(true);
+    alert("Button has been disabled!");
+  };
+  const enableButton = () => {
+    setButtonDisabled(false);
+    alert("Button has been enabled!");
+  }
   const handleClick = event => {
-    alert(userInput);
+    //outputString = processHTMLString(userInput);
+    const quill = new Quill('#userInput',{
+      theme: 'snow'
+    });
+    alert("Quill instance declared!");
   }
   const handleMessageChange = event => {
     setUserInput(event.target.value);
@@ -45,8 +59,9 @@ function App() {
       <button 
       type="submit" 
       class="btn-submit" 
-      onClick={handleClick}
+      style={!userInput ? styles.disabledButton: styles.enabledButton}
       disabled={!userInput} 
+      onClick={handleClick}
       >
         Generate PDF
       </button>
@@ -60,6 +75,42 @@ function App() {
 //  alert(userInput);
 //}
 
-let quill = new Quill('#editor-container');
-
+//let quill = new Quill('#editor-container');
+const styles = {
+  container: {
+    textAlign: 'center',
+    margin: 'auto',
+    padding: '20px',
+    width:400,
+  },
+  heading: {
+    fontSize: '34px',
+    marginBottom: '10px',
+    color: "green",
+    borderBottom: "3px solid green",
+    paddingBottom: 20,
+    borderRadius: "8px",
+  },
+  disabledButton: {
+    backgroundColor: 'gray',
+    color: 'white',
+    cursor: 'not-allowed',
+    margin: 10,
+    padding: 15,
+    borderRadius: "8px",
+    border: "none",
+    boxShadow: "0px 0px 10px 0px grey",
+  },
+  enabledButton: {
+    backgroundColor: 'red',
+    color: 'white',
+    cursor: 'pointer',
+    margin: 10,
+    padding: 15,
+    borderRadius: "8px",
+    border: "none",
+    boxShadow: "0px 0px 10px 0px grey",
+  },
+};
 export default App;
+
