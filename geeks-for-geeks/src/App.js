@@ -102,14 +102,16 @@ const styles = {
     boxShadow: "0px 0px 10px 0px grey",
   },
   enabledButton: {
-    backgroundColor: 'red',
-    color: 'white',
+    display: "block",
+    width: "100px",
+    padding: "10px",
+    backgroundColor: '#007bff',
+    color: '#fff',
     cursor: 'pointer',
-    margin: 10,
-    padding: 15,
-    borderRadius: "8px",
+    borderRadius: "5px",
     border: "none",
     boxShadow: "0px 0px 10px 0px grey",
+    transition: "background-color 0.3s ease",
   },
 };
 export default App;
