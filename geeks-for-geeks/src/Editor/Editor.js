@@ -4,10 +4,25 @@ import 'react-quill/dist/quill.snow.css';
 
 const Editor = () => {
     const [value, setValue] = useState('');
+    const modules = {
+        toolbar : [
+            [{ 'header': [1, 2, false] }],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['link', 'image']
+            
+
+        ],
+    }
+    const handleChange = (content, delta, source, editor) => {
+        setValue(content);
+    };
+   
 
     return (
         <div>
-            <ReactQuill theme="snow" value={value} onChange={setValue} />
+            <ReactQuill  modules = {modules} theme="snow" value={value} onChange={handleChange}       
+/>
         </div>
 
     )
