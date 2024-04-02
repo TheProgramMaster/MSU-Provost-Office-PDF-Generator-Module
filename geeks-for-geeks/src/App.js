@@ -3,12 +3,12 @@ import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import Quill from 'quill';
-import ImageResize from 'quill-image-resize-module-react';
 
 function App() {
   const [value, setValue] = useState('');
-  Quill.register('modules/imageResize',ImageResize);
+  const [uploadedImage, setUploadedImage] = useState(null);
+
+
   const modules = {
     toolbar: [
       [{ 'header': [1, 2, false] }],
@@ -17,11 +17,22 @@ function App() {
       ['link', 'image'],
       [{ 'color': [] }],
       [{ 'background': [] }]
-    ],
-    imageResize: {
-      parchment: Quill.import('parchment'),
-      modules: ['Resize','DisplaySize']
-    },
+    ]
+  };
+
+  // const handleImageUpload = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       setUploadedImage(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+  const handleDeleteImage = () => {
+    setUploadedImage(null);
   };
 
   const generatePDF = () => {
@@ -29,15 +40,8 @@ function App() {
     html2canvas(quillEditor, { scale: 2 }).then(canvas => {
       const imgData = canvas.toDataURL('image/jpeg', 1); // Use JPEG format with quality 1
 
-      /*const doc = new jsPDF({
-        orientation: "landscape",
-        unit: "in",
-        format: [4,2]
-      });*/
-      const doc = new jsPDF('p','pt','a4');
-      const width = quillEditor.clientWidth;
-      const height = quillEditor.clientHeight;
-      doc.addImage(imgData, 'JPEG', 10, 10, width, height); // Adjust the position and size as needed
+      const doc = new jsPDF();
+      doc.addImage(imgData, 'JPEG', 10, 10, 180, 150); // Adjust the position and size as needed
       doc.save('my-document.pdf'); // Save the PDF with a filename
     });
   };
@@ -48,7 +52,15 @@ function App() {
 
   return (
     <div className="App">
+      
       <div>
+      
+        {uploadedImage && (
+          <div>
+            <img src={uploadedImage} alt="Uploaded" style={{ maxWidth: '100%', height: 'auto' }} />
+            <button onClick={handleDeleteImage}>Delete Image</button>
+          </div>
+        )}
         <ReactQuill modules={modules} theme="snow" value={value} onChange={handleChange} />
       </div>
 
