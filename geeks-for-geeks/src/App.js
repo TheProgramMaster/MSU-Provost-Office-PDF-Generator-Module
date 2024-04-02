@@ -29,8 +29,15 @@ function App() {
     html2canvas(quillEditor, { scale: 2 }).then(canvas => {
       const imgData = canvas.toDataURL('image/jpeg', 1); // Use JPEG format with quality 1
 
-      const doc = new jsPDF();
-      doc.addImage(imgData, 'JPEG', 10, 10, 180, 150); // Adjust the position and size as needed
+      /*const doc = new jsPDF({
+        orientation: "landscape",
+        unit: "in",
+        format: [4,2]
+      });*/
+      const doc = new jsPDF('p','pt','a4');
+      const width = quillEditor.clientWidth;
+      const height = quillEditor.clientHeight;
+      doc.addImage(imgData, 'JPEG', 10, 10, width, height); // Adjust the position and size as needed
       doc.save('my-document.pdf'); // Save the PDF with a filename
     });
   };
