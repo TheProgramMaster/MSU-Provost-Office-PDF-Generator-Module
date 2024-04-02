@@ -3,12 +3,13 @@ import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import ImageResize from 'quill-image-resize-module-react';
+import Quill from 'quill';
 
 function App() {
   const [value, setValue] = useState('');
   const [uploadedImage, setUploadedImage] = useState(null);
-
-
+  Quill.register('modules/imageResize',ImageResize);
   const modules = {
     toolbar: [
       [{ 'header': [1, 2, false] }],
@@ -17,7 +18,11 @@ function App() {
       ['link', 'image'],
       [{ 'color': [] }],
       [{ 'background': [] }]
-    ]
+    ],
+    imageResize: {
+      parchment: Quill.import('parchment'),
+      modules: ['Resize','DisplaySize'],
+    },
   };
 
   // const handleImageUpload = (e) => {
@@ -41,7 +46,7 @@ function App() {
       const imgData = canvas.toDataURL('image/jpeg', 1); // Use JPEG format with quality 1
 
       const doc = new jsPDF();
-      doc.addImage(imgData, 'JPEG', 10, 10, 180, 150); // Adjust the position and size as needed
+      doc.addImage(imgData, 'JPEG', 10, 10, doc.clientWidth, doc.clientHeight); // Adjust the position and size as needed
       doc.save('my-document.pdf'); // Save the PDF with a filename
     });
   };
