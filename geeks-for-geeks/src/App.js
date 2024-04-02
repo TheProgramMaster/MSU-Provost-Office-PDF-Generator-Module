@@ -1,52 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
-import React, {useState} from 'react';
-import ReactQuill from 'react-quill';
+import React, { useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
-//<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+import ReactQuill from 'react-quill';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 function App() {
   const [value, setValue] = useState('');
-    
-    const modules = {
-        toolbar : [
-            [{ 'header': [1, 2, false] }],
-            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['link', 'image'],
-            [{'color' : []}],
-            [{'background' : []}]
-            
 
-        ],
-    }
-    const handleChange = (content) => {
-        setValue(content);
-    };
+  const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      ['link', 'image'],
+      [{ 'color': [] }],
+      [{ 'background': [] }]
+    ]
+  };
+
+  const generatePDF = () => {
+    const quillEditor = document.querySelector('.ql-editor');
+    html2canvas(quillEditor, { scale: 2 }).then(canvas => {
+      const imgData = canvas.toDataURL('image/jpeg', 1); // Use JPEG format with quality 1
+
+      const doc = new jsPDF();
+      doc.addImage(imgData, 'JPEG', 10, 10, 180, 150); // Adjust the position and size as needed
+      doc.save('my-document.pdf'); // Save the PDF with a filename
+    });
+  };
+
+  const handleChange = (content) => {
+    setValue(content);
+  };
+
   return (
     <div className="App">
-       <div>
-            <ReactQuill  modules = {modules} theme="snow" value={value} onChange={handleChange}       
-/>
-        </div>
-  
+      <div>
+        <ReactQuill modules={modules} theme="snow" value={value} onChange={handleChange} />
+      </div>
+
       <form id="pdfForm">
-      <button type="submit" 
-          class="btn-submit" 
-          disabled={value==''}
-          style={value=='' || value=='<p><br></p>' ? styles.disabledButton : styles.enabledButton}
-          >Generate PDF</button>    </form>
+        <button
+          type="button"
+          className="btn-submit"
+          disabled={value === ''}
+          onClick={generatePDF}
+          style={value === '' || value === '<p><br></p>' ? styles.disabledButton : styles.enabledButton}
+        >
+          Generate PDF
+        </button>
+      </form>
     </div>
-
-
   );
 }
+
 const styles = {
   container: {
     textAlign: 'center',
     margin: 'auto',
     padding: '20px',
-    width:400,
+    width: 400,
   },
   heading: {
     fontSize: '34px',
@@ -77,4 +90,5 @@ const styles = {
     boxShadow: "0px 0px 10px 0px grey",
   },
 };
+
 export default App;
