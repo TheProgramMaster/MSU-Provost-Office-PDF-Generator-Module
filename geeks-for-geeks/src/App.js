@@ -3,10 +3,12 @@ import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import Quill from 'quill';
+import ImageResize from 'quill-image-resize-module-react';
 
 function App() {
   const [value, setValue] = useState('');
-
+  Quill.register('modules/imageResize',ImageResize);
   const modules = {
     toolbar: [
       [{ 'header': [1, 2, false] }],
@@ -15,7 +17,11 @@ function App() {
       ['link', 'image'],
       [{ 'color': [] }],
       [{ 'background': [] }]
-    ]
+    ],
+    imageResize: {
+      parchment: Quill.import('parchment'),
+      modules: ['Resize','DisplaySize']
+    },
   };
 
   const generatePDF = () => {
