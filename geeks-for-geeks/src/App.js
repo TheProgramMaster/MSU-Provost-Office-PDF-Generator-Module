@@ -3,10 +3,19 @@ import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import './App.css';
+
 
 function App() {
   const [value, setValue] = useState('');
   const [uploadedImage, setUploadedImage] = useState(null);
+  // useEffect(() => {
+  //   // Register the image resize module
+  //   const Quill = window.Quill;
+  //   const ImageResize = require('quill-image-resize-module');
+  //   Quill.register('modules/imageResize', ImageResize);
+  // }, []);
+
 
 
   const modules = {
@@ -18,6 +27,7 @@ function App() {
       [{ 'color': [] }],
       [{ 'background': [] }]
     ]
+   
   };
 
   // const handleImageUpload = (e) => {
@@ -40,7 +50,7 @@ function App() {
     html2canvas(quillEditor, { scale: 2 }).then(canvas => {
       const imgData = canvas.toDataURL('image/jpeg', 1); // Use JPEG format with quality 1
 
-      const doc = new jsPDF();
+      const doc = new jsPDF('a4');
       doc.addImage(imgData, 'JPEG', 10, 10, 180, 150); // Adjust the position and size as needed
       doc.save('my-document.pdf'); // Save the PDF with a filename
     });
@@ -64,7 +74,7 @@ function App() {
         <ReactQuill modules={modules} theme="snow" value={value} onChange={handleChange} />
       </div>
 
-      <form id="pdfForm">
+      <div style={styles.container}>
         <button
           type="button"
           className="btn-submit"
@@ -74,17 +84,17 @@ function App() {
         >
           Generate PDF
         </button>
-      </form>
+      </div>
     </div>
   );
 }
 
 const styles = {
   container: {
-    textAlign: 'center',
-    margin: 'auto',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: '20px',
-    width: 400,
   },
   heading: {
     fontSize: '34px',
