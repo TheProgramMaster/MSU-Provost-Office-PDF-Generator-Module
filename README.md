@@ -2,15 +2,20 @@
      
 ## Description
 
-     This is the submission project of team 10 of Dr. Jason Owen's CSC 530 Senior Capstone course for the Spring academic semester of 2024 at Murray State University. For my team's submission for this project, my team worked on an extension to a pre-existing Quill What You See if What You Get (WYSIWYG) module. Our client included the Murray State University's Provost Office.
+     This is the submission project of team 10 of Dr. Jason Owen's CSC 530 Senior Capstone course for the Spring academic semester
+     of 2024 at Murray State University. For my team's submission for this project, my team worked on an extension to a 
+     pre-existing Quill What You See if What You Get (WYSIWYG) module. Our client included the Murray State University's Provost Office.
 
 ## Our Contribution to Previous Work
 
-     Our work builds on pre-existing code by allowing end-users to implement added styles in their input application.  Namely, end-users may now underline, bold, italicize, and strike-through text given to Quill input field.
+     Our work builds on pre-existing code by allowing end-users to implement added styles in their input application.
+     Namely, end-users may now underline, bold, italicize, and strike-through text given to Quill input field.
 
 ### PDF Generator Capability
 
-     In addition to added style capaiblities, end-users have the ability to generate Public Display Files (PDF) from user input data. Ideally, this generated output data is to be utilized for consumption and recording purposes of the Murray State University Provost Office.
+     In addition to added style capaiblities, end-users have the ability to generate Public Display Files (PDF) from user 
+     input data. Ideally, this generated output data is to be utilized for consumption and recording purposes of the Murray
+     State University Provost Office.
 
 ### Embedded Images Capabilities
 
@@ -33,7 +38,9 @@
 
 ### html2canvas
 
-     This module allows us to take a "screenshot" of the current text of the Quill WYSIWYG editor as it exists at the moment our end-user wishes to geneate a PDF from their input text to the editor. In doing so, we are able to create the resulting downloaded PDF file the user immediately downloads to their local machine to read at their perusal.
+     This module allows us to take a "screenshot" of the current text of the Quill WYSIWYG editor as it exists at the moment 
+     our end-user wishes to geneate a PDF from their input text to the editor. In doing so, we are able to create the resulting
+     downloaded PDF file the user immediately downloads to their local machine to read at their perusal.
 
 ### jspdf
 
@@ -41,15 +48,19 @@
 
 ### quill-image-resize-module-react
 
-     This module builds on top of our Quill module by allowing us to resize embedded images through end-user manipulation. This module is implement through React.js, as we utilized React.js as the framework of choice to serve on the front-end of our software application.
+     This module builds on top of our Quill module by allowing us to resize embedded images through end-user manipulation.
+     This module is implement through React.js, as we utilized React.js as the framework of choice to serve on the 
+     front-end of our software application.
 
 ### Quill
 
-     Of course, we included the main Quill module. This module allows us to instantiate Quill WYSIWYG editors within our webpage application.
+     Of course, we included the main Quill module. This module allows us to instantiate Quill WYSIWYG editors within
+     our webpage application.
 
 ### ReactQuill
 
-     This module allows us to use Quill methods from the Quill editor through the React.js framework on the front-end of our project.
+     This module allows us to use Quill methods from the Quill editor through the React.js framework on the front-end
+     of our project.
 
 ## Future Work
 
@@ -57,8 +68,11 @@
 
 ### Express.js Implementation
 
-     As this project currently stands, we were not able to implement express.js to route user date through local servers. This project could, in the future, do so in a reactive manner to get and post necessary data in our Quill WYSIWYG editor.
+     As this project currently stands, we were not able to implement express.js to route user date through local servers.
+     This project could, in the future, do so in a reactive manner to get and post necessary data in our Quill WYSIWYG editor.
 
 ### MongoDB Capabilities
 
-     Our project currently is not connected to a SQL database of any form. Future work could implement this capability, either through MongoDB, or any other database feature, to store student data or any other form of input data to our Quill WYSIWYG editor in said database on local servers.
+     Our project currently is not connected to a SQL database of any form. Future work could implement this capability,
+     either through MongoDB, or any other database feature, to store student data or any other form of input data to our
+     Quill WYSIWYG editor in said database on local servers.
