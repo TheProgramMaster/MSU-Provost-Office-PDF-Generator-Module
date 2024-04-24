@@ -1,6 +1,6 @@
 # MSU-Provost-Office-PDF-Generator-Module
      
-     ##Description
+     ## Description
 
           This is the submission project of team 10 of Dr. Jason Owen's CSC 530 Senior Capstone course for the Spring academic semester of 2024 at Murray State University. For my team's submission for this project, my team worked on an extension to a pre-existing Quill What You See if What You Get (WYSIWYG) module. Our client included the Murray State University's Provost Office.
 
