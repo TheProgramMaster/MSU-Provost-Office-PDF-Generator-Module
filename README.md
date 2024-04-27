@@ -65,7 +65,17 @@
 
 ## Future Work
 
-     We include this section to detail possible innovations that may be made in future work on this project.
+1. Database Integration:
+  - Purpose: Enables users to manage, store, and retrieve documents directly from the editor.
+  - Benefits: Improves organization and accessibility, enhancing the overall user experience.
+
+2. Expanded Download Options:
+  - Formats: Supports downloads in DOC, TXT, and more to meet diverse needs.
+  - Customization: Allows detailed customization of document formatting and layout before export.
+
+3. Enhanced Collaboration Tools:
+  - Real-Time Editing: Facilitates simultaneous document editing by multiple users.
+  - Commenting and Review: Provides integrated commenting tools for feedback and smooth revisions.
 
 ### Express.js Implementation
 
