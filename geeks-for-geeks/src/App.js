@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import 'react-quill/dist/quill.snow.css';
-import ReactQuill from 'react-quill';
+import ReactQuill, {Quill} from 'react-quill';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import './App.css';
-import Quill from 'quill';
 import ImageResize from 'quill-image-resize-module-react';
+
 
 Quill.register('modules/imageResize', ImageResize);
 
@@ -13,14 +13,13 @@ Quill.register('modules/imageResize', ImageResize);
 function App() {
   const [value, setValue] = useState('');
   const [uploadedImage, setUploadedImage] = useState(null);
-  
+  const quillRef = useRef(null);
   // useEffect(() => {
   //   // Register the image resize module
   //   const Quill = window.Quill;
   //   const ImageResize = require('quill-image-resize-module');
   //   Quill.register('modules/imageResize', ImageResize);
   // }, []);
-
   
 
 
@@ -53,16 +52,24 @@ function App() {
   // };
 
   const handleDeleteImage = () => {
-    setUploadedImage(null);
+    const quill = quillRef.current?.getEditor(); // Directly access the Quill instance from ref
+    const range = quill?.getSelection();
+    if (range && range.length) {
+      const format = quill.getFormat(range.index, range.length);
+      if (format.image) {
+        quill.deleteText(range.index, range.length);
+      }
+    }
   };
+
 
   const generatePDF = () => {
     const quillEditor = document.querySelector('.ql-editor');
-    html2canvas(quillEditor, { scale: 2 }).then(canvas => {
-      const imgData = canvas.toDataURL('image/jpeg', 1); // Use JPEG format with quality 1
+    html2canvas(quillEditor, { scale: window.devicePixelRatio, logging: true, useCORS: true }).then(canvas => {
+      const imgData = canvas.toDataURL('image/jpeg', 1);
 
-      const doc = new jsPDF('a4');
-      doc.addImage(imgData, 'JPEG', 10, 10, 180, 150); // Adjust the position and size as needed
+      const doc = new jsPDF('p');
+      doc.addImage(imgData, 'JPEG', 10, 10, canvas.width * 0.164583, canvas.height * 0.264583); // scale canvas pixels to mm
       doc.save('my-document.pdf'); // Save the PDF with a filename
     });
   };
@@ -82,7 +89,7 @@ function App() {
             <button onClick={handleDeleteImage}>Delete Image</button>
           </div>
         )}
-        <ReactQuill modules={modules} theme="snow" value={value} onChange={handleChange} />
+        <ReactQuill modules={modules} theme="snow" value={value} onChange={handleChange} ref={quillRef} />
       </div>
 
       <div style={styles.container}>
