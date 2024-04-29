@@ -4,17 +4,25 @@ import ReactQuill from 'react-quill';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import './App.css';
+import Quill from 'quill';
+import ImageResize from 'quill-image-resize-module-react';
+
+Quill.register('modules/imageResize', ImageResize);
 
 
 function App() {
   const [value, setValue] = useState('');
   const [uploadedImage, setUploadedImage] = useState(null);
+  
   // useEffect(() => {
   //   // Register the image resize module
   //   const Quill = window.Quill;
   //   const ImageResize = require('quill-image-resize-module');
   //   Quill.register('modules/imageResize', ImageResize);
   // }, []);
+
+  
+
 
 
 
@@ -26,7 +34,10 @@ function App() {
       ['link', 'image'],
       [{ 'color': [] }],
       [{ 'background': [] }]
-    ]
+    ],
+    imageResize: {
+      parchment: Quill.import('parchment')
+  }
    
   };
 
